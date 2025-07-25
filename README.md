@@ -6,7 +6,7 @@ using sha256 hashes to make sure nothing’s been tampered with.
 
 ## how it works
 
-* `main.json` lists all available plugins by ID
+* `database.json` lists all available plugins by ID
 * each plugin has its own folder with a `manifest.json`
 * the manifest includes a URL to the plugin and its expected sha256 hash
 * clients can read the manifest, verify the hash, and load the plugin in a sandbox
