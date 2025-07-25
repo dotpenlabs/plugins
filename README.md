@@ -29,6 +29,9 @@ you can host the actual plugin wherever you want — just match the hash.
 MIT — free to use, modify, or fork
 no guarantees, and no responsibility for what any plugin does.
 
----
+
+
+
+
 
 made with care by dotpen labs
