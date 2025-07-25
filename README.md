@@ -1,7 +1,8 @@
 nothing fancy — just a clean, static repo with plugin manifests
 using sha256 hashes to make sure nothing’s been tampered with.
 
----
+
+
 
 ## how it works
 
@@ -13,7 +14,7 @@ using sha256 hashes to make sure nothing’s been tampered with.
 all manifests live in this repo — no redirects, no lookups.
 no backend. just static JSON files and trust through verification.
 
----
+
 
 ## why this exists
 
@@ -21,7 +22,7 @@ we believe plugins should be open, but also safe.
 by checking the hash before loading, you avoid surprises.
 you can host the actual plugin wherever you want — just match the hash.
 
----
+
 
 ## license
 
