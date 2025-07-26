@@ -12,7 +12,7 @@ jobs:
   validate-json:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v3
 
       - name: Get changed JSON files
@@ -21,16 +21,34 @@ jobs:
         with:
           files: '**/*.json'
 
-      - name: Validate JSON files
+      - name: Validate JSON syntax with jq
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
-          echo "Updated files:"
+          echo "checking json syntax"
           echo "${{ steps.changed-files.outputs.all_changed_files }}" | tr ' ' '\n'
-          
+
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "Validating: $file..."
             if ! jq empty "$file"; then
-              echo "Invalid Configuration: $file"
+              echo "invalid json: $file"
               exit 1
             fi
           done
+
+      - name: Check for trailing commas
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          echo "checking for trailing commas"
+          echo "${{ steps.changed-files.outputs.all_changed_files }}" | tr ' ' '\n'
+
+          fail=0
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            if grep -n -E ',\s*[\}\]]' "$file"; then
+              echo "trailing comma found in $file"
+              fail=1
+            fi
+          done
+
+          if [ "$fail" -eq 1 ]; then
+            echo "remove trailing commas before commit"
+            exit 1
+          fi
