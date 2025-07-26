@@ -5,7 +5,7 @@
   "description": "A dropbox extension for Dotpen.",
   "author": "bijsven.nl",
   "hash": "none",
-  "url": "https://spkg.bijsven.nl/dropbox-plugin/plugin.js",
+  "url": "https://spkg.bijsven.nl/dropbox-plugin/plugin.js"
   "permissions": [
     "action:dropout",
     "placement:sidebar_bottom"
