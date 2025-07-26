@@ -9,5 +9,5 @@
   "permissions": [
     "action:dropout",
     "placement:sidebar_bottom"
-  ],
+  ]
 }
