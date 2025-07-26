@@ -1,0 +1,36 @@
+name: JSON Validation
+
+on:
+  push:
+    paths:
+      - '**/*.json'
+  pull_request:
+    paths:
+      - '**/*.json'
+
+jobs:
+  validate-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get changed JSON files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: '**/*.json'
+
+      - name: Validate JSON files
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          echo "Updated files:"
+          echo "${{ steps.changed-files.outputs.all_changed_files }}" | tr ' ' '\n'
+          
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "Validating: $file..."
+            if ! jq empty "$file"; then
+              echo "Invalid Configuration: $file"
+              exit 1
+            fi
+          done
